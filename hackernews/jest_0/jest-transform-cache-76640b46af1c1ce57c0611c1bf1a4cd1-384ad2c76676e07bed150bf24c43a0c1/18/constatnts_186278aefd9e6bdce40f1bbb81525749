@@ -1,0 +1,17 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.SORTS = exports.url = exports.PARAM_HPP = exports.PARAM_PAGE = exports.PARAM_SEARCH = exports.PATH_SEARCH = exports.PATH_BASE = exports.DEFAULT_HPP = exports.DEFAULT_QUERY = undefined;var _lodash = require('lodash');
+const DEFAULT_QUERY = exports.DEFAULT_QUERY = '';
+const DEFAULT_HPP = exports.DEFAULT_HPP = '100';
+const PATH_BASE = exports.PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = exports.PATH_SEARCH = '/search';
+const PARAM_SEARCH = exports.PARAM_SEARCH = 'query=';
+const PARAM_PAGE = exports.PARAM_PAGE = 'page=';
+const PARAM_HPP = exports.PARAM_HPP = 'hitsPerPage=';
+const url = exports.url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
+
+
+const SORTS = exports.SORTS = {
+    NONE: list => list,
+    TITLE: list => (0, _lodash.sortBy)(list, 'title'),
+    AUTHOR: list => (0, _lodash.sortBy)(list, 'author'),
+    COMMENTS: list => (0, _lodash.sortBy)(list, 'num_comments').reverse(),
+    POINTS: list => (0, _lodash.sortBy)(list, 'points').reverse() };

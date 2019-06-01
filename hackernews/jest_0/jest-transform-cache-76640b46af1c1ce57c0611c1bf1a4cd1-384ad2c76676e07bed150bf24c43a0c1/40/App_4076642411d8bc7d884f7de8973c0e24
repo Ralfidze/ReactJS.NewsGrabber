@@ -1,0 +1,161 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.TableComponent = exports.SearchComponent = exports.Button = undefined;var _jsxFileName = '/home/ralfidze/Documents/Projects/road_to_learn_react/hackernews/src/App.js';var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _isomorphicFetch = require('isomorphic-fetch');var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+var _logo = require('./images/logo.svg');var _logo2 = _interopRequireDefault(_logo);
+require('./styles/App.css');
+var _Search = require('./Search');var _Search2 = _interopRequireDefault(_Search);
+var _Table = require('./Table');var _Table2 = _interopRequireDefault(_Table);
+var _Button = require('./Button');var _Button2 = _interopRequireDefault(_Button);
+var _constatnts = require('./constants/constatnts.js');function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+
+
+
+
+
+
+
+
+console.log(_constatnts.url);
+
+class App extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: null,
+      searchKey: '',
+      searchTerm: _constatnts.DEFAULT_QUERY,
+      error: null };
+
+    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
+    this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+  }
+
+  needsToSearchTopStories(searchTerm) {
+    return this.state.results ? !this.state.results[searchTerm] : true;
+  }
+
+  setSearchTopStories(result) {const
+    hits = result.hits,page = result.page;var _state =
+    this.state;const searchKey = _state.searchKey,results = _state.results;
+
+    const oldHits = results && results[searchKey] ?
+    results[searchKey].hits :
+    [];
+
+    const updatedHits = [
+    ...oldHits,
+    ...hits];
+
+
+    this.setState({
+      results: Object.assign({},
+      results, {
+        [searchKey]: { hits: updatedHits, page } }) });
+
+
+  }
+
+  fetchSearchTopStories(searchTerm, page = 0) {
+    (0, _isomorphicFetch2.default)(`${_constatnts.PATH_BASE}${_constatnts.PATH_SEARCH}?${_constatnts.PARAM_SEARCH}${searchTerm}&${_constatnts.PARAM_PAGE}${page}&${_constatnts.PARAM_HPP}${_constatnts.DEFAULT_QUERY}`).
+    then(response => response.json()).
+    then(result => this.setSearchTopStories(result)).
+    catch(e => this.setState({ error: e }));
+  }
+
+  componentDidMount() {const
+    searchTerm = this.state.searchTerm;
+    if (searchTerm) {
+      this.setState({ searchKey: searchTerm });
+      this.fetchSearchTopStories(searchTerm);
+    }
+  }
+
+  onSearchChange(event) {
+    this.setState({ searchTerm: event.target.value });
+
+  }
+
+  onDismiss(id) {var _state2 =
+    this.state;const searchKey = _state2.searchKey,results = _state2.results;var _results$searchKey =
+    results[searchKey];const hits = _results$searchKey.hits,page = _results$searchKey.page;
+    const isNotId = item => item.objectID !== id;
+    const updatedList = hits.filter(isNotId);
+    this.setState({
+      results: Object.assign({},
+      results, {
+        [searchKey]: { hits: updatedList, page } }) });
+
+
+  }
+
+  onSearchSubmit(event) {const
+    searchTerm = this.state.searchTerm;
+    this.setState({ searchKey: searchTerm });
+    if (this.needsToSearchTopStories(searchTerm)) {
+      this.fetchSearchTopStories(searchTerm);
+    }
+    event.preventDefault();
+  }
+
+  render() {var _state3 =
+
+
+
+
+    this.state;const searchTerm = _state3.searchTerm,results = _state3.results,searchKey = _state3.searchKey,error = _state3.error;
+    const page =
+    results &&
+    results[searchKey] &&
+    results[searchKey].page ||
+    0;
+    const list =
+    results &&
+    results[searchKey] &&
+    results[searchKey].hits ||
+    [];
+
+    return (
+      _react2.default.createElement('div', { className: 'page', __source: { fileName: _jsxFileName, lineNumber: 122 }, __self: this },
+        _react2.default.createElement('header', { className: 'App', __source: { fileName: _jsxFileName, lineNumber: 123 }, __self: this },
+          _react2.default.createElement('img', { src: _logo2.default, className: 'App-logo', alt: 'logo', __source: { fileName: _jsxFileName, lineNumber: 124 }, __self: this }),
+          _react2.default.createElement('h1', { className: 'App-title', __source: { fileName: _jsxFileName, lineNumber: 125 }, __self: this }, 'Search hacker news ')),
+
+        _react2.default.createElement('div', { className: 'interactions', __source: { fileName: _jsxFileName, lineNumber: 127 }, __self: this },
+          _react2.default.createElement(_Search2.default, {
+              value: searchTerm,
+              onChange: this.onSearchChange,
+              onSubmit: this.onSearchSubmit, __source: { fileName: _jsxFileName, lineNumber: 128 }, __self: this },
+
+            _react2.default.createElement('b', { __source: { fileName: _jsxFileName, lineNumber: 133 }, __self: this }, 'Search'))),
+
+
+        error ?
+        _react2.default.createElement('div', { className: 'interactions', __source: { fileName: _jsxFileName, lineNumber: 137 }, __self: this },
+          _react2.default.createElement('p', { className: 'error', __source: { fileName: _jsxFileName, lineNumber: 138 }, __self: this }, 'Something went wrong!')) :
+
+
+        _react2.default.createElement(_Table2.default, {
+          list: list,
+          onDismiss: this.onDismiss, __source: { fileName: _jsxFileName, lineNumber: 141 }, __self: this }),
+
+
+        _react2.default.createElement('div', { className: 'interactions', __source: { fileName: _jsxFileName, lineNumber: 146 }, __self: this },
+          results && _react2.default.createElement(_Button2.default, { onClick: () => this.fetchSearchTopStories(searchKey, page + 1), __source: { fileName: _jsxFileName, lineNumber: 147 }, __self: this }, 'More'))));
+
+
+
+
+
+
+  }}exports.default =
+
+
+App;exports.
+
+Button = _Button2.default;exports.
+SearchComponent = _Search2.default;exports.
+TableComponent = _Table2.default;

@@ -1,0 +1,44 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.Table = undefined;var _jsxFileName = '/home/ralfidze/Documents/Projects/road_to_learn_react/hackernews/src/Table.js';var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _Button = require('./Button');var _Button2 = _interopRequireDefault(_Button);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+const largeColumn = {
+    width: '40%' };
+
+
+const midColumn = {
+    width: '30%' };
+
+
+const smallColumn = {
+    width: '10%' };
+
+
+
+function Table({ list, onDismiss }) {
+    return (
+        _react2.default.createElement('div', { className: 'table', __source: { fileName: _jsxFileName, lineNumber: 19 }, __self: this },
+            list.map(item =>
+            _react2.default.createElement('div', { key: item.objectID, className: 'table-row', __source: { fileName: _jsxFileName, lineNumber: 21 }, __self: this },
+                _react2.default.createElement('span', { style: largeColumn, __source: { fileName: _jsxFileName, lineNumber: 22 }, __self: this },
+                    _react2.default.createElement('a', { href: item.url, target: '_blank', __source: { fileName: _jsxFileName, lineNumber: 23 }, __self: this }, item.title)),
+
+                _react2.default.createElement('span', { style: midColumn, __source: { fileName: _jsxFileName, lineNumber: 25 }, __self: this }, item.author),
+                _react2.default.createElement('span', { style: smallColumn, __source: { fileName: _jsxFileName, lineNumber: 26 }, __self: this }, item.num_comments),
+                _react2.default.createElement('span', { style: smallColumn, __source: { fileName: _jsxFileName, lineNumber: 27 }, __self: this }, item.points),
+                _react2.default.createElement('span', { __source: { fileName: _jsxFileName, lineNumber: 28 }, __self: this },
+                    _react2.default.createElement(_Button2.default, {
+                            onClick: () => onDismiss(item.objectID),
+                            className: 'button-inline', __source: { fileName: _jsxFileName, lineNumber: 29 }, __self: this }, 'Delete'))))));
+
+
+
+
+
+
+
+
+}exports.default =
+
+Table;exports.
+
+Table = Table;

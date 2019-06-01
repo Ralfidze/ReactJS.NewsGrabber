@@ -1,0 +1,87 @@
+'use strict';var _jsxFileName = '/home/ralfidze/Documents/Projects/road_to_learn_react/hackernews/src/tests/App.test.js';var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactDom = require('react-dom');var _reactDom2 = _interopRequireDefault(_reactDom);
+var _reactTestRenderer = require('react-test-renderer');var _reactTestRenderer2 = _interopRequireDefault(_reactTestRenderer);
+var _App = require('../App');var _App2 = _interopRequireDefault(_App);
+var _enzyme = require('enzyme');var _enzyme2 = _interopRequireDefault(_enzyme);
+var _enzymeAdapterReact = require('enzyme-adapter-react-16');var _enzymeAdapterReact2 = _interopRequireDefault(_enzymeAdapterReact);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+_enzyme2.default.configure({ adapter: new _enzymeAdapterReact2.default() });
+
+describe('App', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    _reactDom2.default.render(_react2.default.createElement(_App2.default, { __source: { fileName: _jsxFileName, lineNumber: 13 }, __self: undefined }), div);
+    _reactDom2.default.unmountComponentAtNode(div);
+  });
+
+  test('has a valid snapshot', () => {
+    const component = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_App2.default, { __source: { fileName: _jsxFileName, lineNumber: 19 }, __self: undefined }));
+
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('Search', () => {
+
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    _reactDom2.default.render(_react2.default.createElement(_App.SearchComponent, { __source: { fileName: _jsxFileName, lineNumber: 30 }, __self: undefined }, 'Search'), div);
+  });
+
+  test('has a valid snapshot', () => {
+    const component = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_App.SearchComponent, { __source: { fileName: _jsxFileName, lineNumber: 35 }, __self: undefined }, 'Search'));
+
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+});
+
+describe('Button', () => {
+
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    _reactDom2.default.render(_react2.default.createElement(_App.Button, { __source: { fileName: _jsxFileName, lineNumber: 47 }, __self: undefined }, 'Search'), div);
+  });
+
+  test('has a valid snapshot', () => {
+    const component = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_App.Button, { __source: { fileName: _jsxFileName, lineNumber: 52 }, __self: undefined }, 'More'));
+
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+});
+
+describe('Table', () => {
+  const props = {
+    list: [
+    { title: '1', author: '1', num_comments: 1, points: 2, objectID: 'y' },
+    { title: '2', author: '2', num_comments: 1, points: 2, objectID: 'x' }] };
+
+
+
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    _reactDom2.default.render(_react2.default.createElement(_App.TableComponent, Object.assign({}, props, { __source: { fileName: _jsxFileName, lineNumber: 70 }, __self: undefined })), div);
+  });
+
+  test('has a valid snapshot', () => {
+    const component = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_App.TableComponent, Object.assign({}, props, { __source: { fileName: _jsxFileName, lineNumber: 75 }, __self: undefined })));
+
+    let tree = component.toJSON();
+  });
+
+  it('shows two items in list', () => {
+    const element = (0, _enzyme.shallow)(
+    _react2.default.createElement(_App.TableComponent, Object.assign({}, props, { __source: { fileName: _jsxFileName, lineNumber: 82 }, __self: undefined })));
+
+    expect(element.find('.table-row').length).toBe(2);
+  });
+
+});

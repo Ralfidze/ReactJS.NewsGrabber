@@ -1,0 +1,8 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });const DEFAULT_QUERY = exports.DEFAULT_QUERY = '';
+const DEFAULT_HPP = exports.DEFAULT_HPP = '100';
+const PATH_BASE = exports.PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = exports.PATH_SEARCH = '/search';
+const PARAM_SEARCH = exports.PARAM_SEARCH = 'query=';
+const PARAM_PAGE = exports.PARAM_PAGE = 'page=';
+const PARAM_HPP = exports.PARAM_HPP = 'hitsPerPage=';
+const url = exports.url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
